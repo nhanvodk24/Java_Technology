@@ -1,15 +1,18 @@
 package org.example.DAO;
-import org.example.IDAO.CRUD;
+
 import org.example.POJO.Manufacture;
 import org.example.POJO.Phone;
+
+import java.util.List;
 import org.example.Hibernate.HibernateUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import javax.persistence.Query;
-import java.util.List;
+import org.hibernate.query.Query;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-public class PhoneDAO implements CRUD<Phone>{
+
+public class PhoneDAO implements CRUDInterface<Phone> {
     @Override
     public boolean add(Phone phone) {
         try {
@@ -129,7 +132,7 @@ public class PhoneDAO implements CRUD<Phone>{
             p.setCountry(country);
             p.setColor(color);
             p.setPrice(price);
-            p.setQuantity(quantity);
+            p.setQuanlity(quantity);
 
 
             // Update
@@ -152,7 +155,7 @@ public class PhoneDAO implements CRUD<Phone>{
             session.beginTransaction();
 
             // Sử dụng truy vấn Hibernate để tìm điện thoại có giá cao nhất
-            Query query = session.createQuery("FROM Phone WHERE Price = (SELECT MAX(p.Price) FROM Phone p)", Phone.class);
+            Query<Phone> query = session.createQuery("FROM Phone WHERE Price = (SELECT MAX(p.Price) FROM Phone p)", Phone.class);
             List<Phone> phonesWithMaxPrice = query.getResultList();
             session.getTransaction().commit();
             session.close();
@@ -169,7 +172,7 @@ public class PhoneDAO implements CRUD<Phone>{
             Session session = HibernateUtils.getSessionFactory().openSession();
             session.beginTransaction();
 
-            Query query = session.createQuery("FROM Phone p ORDER BY p.Country ASC, p.Price DESC", Phone.class);
+            Query<Phone> query = session.createQuery("FROM Phone p ORDER BY p.Country ASC, p.Price DESC", Phone.class);
             List<Phone> sortedPhones = query.getResultList();
 
             session.getTransaction().commit();
@@ -188,7 +191,7 @@ public class PhoneDAO implements CRUD<Phone>{
             Session session = HibernateUtils.getSessionFactory().openSession();
             session.beginTransaction();
 
-            Query query = session.createQuery("FROM Phone p WHERE p.Price > 50000000", Phone.class);
+            Query<Phone> query = session.createQuery("FROM Phone p WHERE p.Price > 50000000", Phone.class);
             List<Phone> sortedPhones = query.getResultList();
 
             session.getTransaction().commit();
@@ -208,7 +211,7 @@ public class PhoneDAO implements CRUD<Phone>{
             Session session = HibernateUtils.getSessionFactory().openSession();
             session.beginTransaction();
 
-            Query query = session.createQuery("FROM Phone p WHERE p.Color = 'Pink' AND p.Price >= 15000000", Phone.class);
+            Query<Phone> query = session.createQuery("FROM Phone p WHERE p.Color = 'Pink' AND p.Price >= 15000000", Phone.class);
             List<Phone> phoneList = query.getResultList();
 
             session.getTransaction().commit();
@@ -222,6 +225,4 @@ public class PhoneDAO implements CRUD<Phone>{
         }
         return null;
     }
-
-
 }

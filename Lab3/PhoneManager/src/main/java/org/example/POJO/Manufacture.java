@@ -1,6 +1,9 @@
 package org.example.POJO;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+
 @Entity
 @Table(name = "Manufacture")
 public class Manufacture  {

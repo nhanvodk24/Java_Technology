@@ -11,18 +11,21 @@ public class Main {
     public static void main(String[] args) {
 
         ManufactureDAO manufactureDAO = new ManufactureDAO();
-        Manufacture m1 = new Manufacture("1", "Apple", "VietNam", 10000),
-                m2 = new Manufacture("2", "SamSung", "VietNam", 3000),
-                m3 = new Manufacture("3", "LG", "VietNam", 2000);
+        Manufacture m1 = new Manufacture("1", "Nokia", "VietNam", 10000),
+                    m2 = new Manufacture("2", "SamSung", "VietNam", 6000),
+                    m3 = new Manufacture("3", "Xiaomi", "VietNam", 8000),
+                    m4 = new Manufacture("4", "IPhone", "VietNam", 2000);
 
         manufactureDAO.add(m1);
         manufactureDAO.add(m2);
         manufactureDAO.add(m3);
+        manufactureDAO.add(m4);
 
         PhoneDAO phoneDAO = new PhoneDAO();
-        phoneDAO.add(new Phone("1", "A1", 8000000, "Blue", "VietNam", 3, m1));
-        phoneDAO.add(new Phone("2", "S2", 6000000, "Blue", "VietNam", 2, m2));
-        phoneDAO.add(new Phone("3", "L3", 55000000, "Blue", "VietNam", 5, m3));
+        phoneDAO.add(new Phone("1", "Nokia1", 8000000, "Blue", "VietNam", 2, m1));
+        phoneDAO.add(new Phone("2", "SamSung2", 6000000, "Blue", "VietNam", 2, m2));
+        phoneDAO.add(new Phone("3", "Xiaomi3", 55000000, "Blue", "VietNam", 2, m3));
+        phoneDAO.add(new Phone("4", "IPhone4", 4008000, "Blue", "VietNam", 2, m4));
 
 
         System.out.println("\n==============================\n");

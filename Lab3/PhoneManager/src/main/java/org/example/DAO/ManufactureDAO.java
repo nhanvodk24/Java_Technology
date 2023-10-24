@@ -1,30 +1,35 @@
 package org.example.DAO;
 
+import org.example.Exception.InvalidOperationException;
 import org.example.Hibernate.HibernateUtils;
-import org.example.IDAO.CRUD;
 import org.example.POJO.Manufacture;
 import org.hibernate.Session;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.query.Query;
+
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
-public class ManufactureDAO implements CRUD<Manufacture> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ManufactureDAO implements CRUDInterface<Manufacture> {
     @Override
     public boolean add(Manufacture manufacture) {
-        try{
+        try {
             Session session = HibernateUtils.getSessionFactory().openSession();
             session.beginTransaction();
+
             session.save(manufacture);
+
             session.getTransaction().commit();
             session.close();
-        } catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception e){
+
         }
         return false;
     }
+
     @Override
     public Manufacture get(String id) {
         Manufacture manu = new Manufacture();
@@ -161,9 +166,9 @@ public class ManufactureDAO implements CRUD<Manufacture> {
             session.getTransaction().commit();
             session.close();
 
-//            if (usManufacturers.isEmpty()) {
-//                throw new InvalidOperationException("No manufacturer based in the US found.");
-//            }
+            if (usManufacturers.isEmpty()) {
+                throw new InvalidOperationException("No manufacturer based in the US found.");
+            }
 
             // Return the last manufacturer in the list
             return usManufacturers.get(0);
